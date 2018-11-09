@@ -59,7 +59,7 @@
     state: present
     distribution_function: "{{ distribution_function }}"
     name: "{{ item.name }}"
-    ports: "{{ item.ports }}"
+    ports: "{{ item.port }}"
     mode: "{{ ifgrp_mode }}"
     node: "{{ item.node}}"
     username: "{{ username }}"
