@@ -1,0 +1,13 @@
+---
+license_codes:
+aggrs:
+ports:
+ifgrps:
+vlans:
+bcasts:
+inters:
+cluster_name: temp
+autonegotiate: true
+flowcontrol: none
+distribution_function: ip
+ifgrp_mode: multimode
