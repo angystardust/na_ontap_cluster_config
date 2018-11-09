@@ -49,6 +49,7 @@ bcasts:
 inters:
   - { name: intercluster_1, address: 172.32.0.187, netmask: 255.255.255.0, node: vsim-01, port: e0c }
   - { name: intercluster_2, address: 172.32.0.188, netmask: 255.255.255.0, node: vsim-02, port: e0c }
+
 cluster_name: vsim  # needs to be set for the vserver that the interclusters will go on.
 
 Dependencies
