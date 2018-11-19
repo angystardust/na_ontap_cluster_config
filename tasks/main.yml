@@ -40,7 +40,7 @@
 - name: Modify Net Port
   na_ontap_net_port:
     state: present
-    nodes: "{{ item.node }}"
+    node: "{{ item.node }}"
     port: "{{ item.port }}"
     mtu: "{{ item.mtu }}"
     autonegotiate_admin: "{{ autonegotiate }}"
