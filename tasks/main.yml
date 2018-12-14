@@ -37,12 +37,26 @@
   with_items:
     "{{ aggrs }}"
   when: aggrs != None
+- name: Remove ports from Default broadcast domain
+  na_ontap_broadcast_domain_ports:
+    state: absent
+    broadcast_domain: Default
+    ports: "{{ item.node }}:{{ item.port }}"
+    hostname: "{{ hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    ontapi: "{{ ontap_facts.ontap_version }}"
+    https: true
+    validate_certs: false
+  with_items:
+    "{{ ports }}"
+  when: ports != None
 - name: Modify Net Port
   na_ontap_net_port:
     state: present
     node: "{{ item.node }}"
     port: "{{ item.port }}"
-    mtu: "{{ item.mtu }}"
+#    mtu: "{{ item.mtu }}"
     autonegotiate_admin: "{{ autonegotiate }}"
     flowcontrol_admin: "{{ flowcontrol }}"
     username: "{{ username }}"
@@ -59,7 +73,7 @@
     state: present
     distribution_function: "{{ distribution_function }}"
     name: "{{ item.name }}"
-    ports: "{{ item.port }}"
+    ports: "{{ item.ports }}"
     mode: "{{ ifgrp_mode }}"
     node: "{{ item.node}}"
     username: "{{ username }}"
@@ -70,6 +84,21 @@
     validate_certs: false
   with_items:
     "{{ ifgrps  }}"
+  when: ifgrps != None
+- name: Modify Net Port
+  na_ontap_net_port:
+    state: present
+    node: "{{ item.node }}"
+    port: "{{ item.name }}"
+    mtu: "{{ mtu }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    hostname: "{{ hostname }}"
+    ontapi: "{{ ontap_facts.ontap_version }}"
+    https: true
+    validate_certs: false
+  with_items:
+    "{{ ifgrps }}"
   when: ifgrps != None
 - name: Create VLAN
   na_ontap_net_vlan:

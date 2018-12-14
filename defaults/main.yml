@@ -12,3 +12,4 @@ flowcontrol: none
 distribution_function: ip
 ifgrp_mode: multimode_lacp
 bcast_ipspace: Default
+mtu: 9000
