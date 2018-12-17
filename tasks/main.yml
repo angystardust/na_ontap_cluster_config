@@ -1,14 +1,5 @@
 ---
 # tasks file for na-ontap-cluster-config
-- name: Get Ontapi version
-  na_ontap_gather_facts:
-    state: info
-    hostname: "{{ hostname }}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    https: true
-    ontapi: 32
-    validate_certs: false
 - name: Setup licenses
   na_ontap_license:
     state: present
