@@ -1,5 +1,10 @@
 ---
 license_codes:
+disks:
+motd:
+dns:
+ntp:
+snmp:
 aggrs:
 ports:
 ifgrps:

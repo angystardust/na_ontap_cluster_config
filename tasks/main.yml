@@ -11,6 +11,72 @@
     https: true
     validate_certs: false
   when: license_codes != None
+- name: Assign Disks
+  na_ontap_disks:
+    node: "{{ item }}"
+    hostname: "{{ hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    ontapi: "{{ ontap_facts.ontap_version }}"
+    https: true
+    validate_certs: false
+  loop: 
+    "{{ disks }}"
+  when: disks != None
+- name: Set Login Message
+  na_ontap_motd:
+    state: present
+    vserver: "{{ cluster }}"
+    message: "{{ motd }}"
+    hostname: "{{ hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    ontapi: "{{ ontap_facts.ontap_version }}"
+    https: true
+    validate_certs: false
+  when: motd != None
+- name: Setup DNS
+  na_ontap_dns:
+    state: present
+    vserver: "{{ cluster }}"
+    domains: "{{ item.dns_domains }}"
+    nameservers: "{{ item.dns_nameservers }}"
+    hostname: "{{ hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    ontapi: "{{ ontap_facts.ontap_version }}"
+    https: true
+    validate_certs: false
+  loop:
+    "{{ dns }}"
+  when: dns != None
+- name: Set NTP Server
+  na_ontap_ntp:
+    state: present
+    server_name: "{{ item.server_name }}"
+    version: "{{ item.version }}"
+    hostname: "{{ hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    ontapi: "{{ ontap_facts.ontap_version }}"
+    https: true
+    validate_certs: false
+  loop:
+    "{{ ntp }}"
+  when: ntp != None
+- name: Create SNMP community
+  na_ontap_snmp:
+    community_name: "{{ item.community_name }}"
+    access_control: "{{ item.access_control }}"
+    hostname: "{{ hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    ontapi: "{{ ontap_facts.ontap_version }}"
+    https: true
+    validate_certs: false
+  loop:
+    "{{ snmp }}"
+  when: snmp != None
 - name: Create Aggregates
   na_ontap_aggregate:
     state: present
@@ -96,7 +162,7 @@
     state: present
     vlanid: "{{ item.id }}"
     node: "{{ item.node }}"
-    parent_interface: "{{ item.parent }}"
+    parent_interface: "{{ item.port }}"
     username: "{{ username }}"
     password: "{{ password }}"
     hostname: "{{ hostname }}"
