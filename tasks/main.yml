@@ -200,7 +200,7 @@
     is_auto_revert: true
     address: "{{ item.address }}"
     netmask: "{{ item.netmask }}"
-    vserver: "{{ cluster_name }}"
+    vserver: "{{ cluster }}"
     username: "{{ username }}"
     password: "{{ password }}"
     hostname: "{{ hostname }}"
